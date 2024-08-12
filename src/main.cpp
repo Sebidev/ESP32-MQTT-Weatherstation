@@ -2,9 +2,9 @@
 #include <ArduinoJson.h>
 #include <PubSubClient.h>
 #include <WiFi.h>
-#include <config.h>
-#include <display.h>
 #include <stdint.h>
+#include "config.h"
+#include "display.h"
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -95,8 +95,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
     return;
   }
 
-  // Check which topic the message is from and store values accordingly
   unsigned long now = millis(); // Current time
+  
   if (strcmp(topic, ts1_topic) == 0) {
     ts1_battery_state = doc["battery_state"].as<String>();
     ts1_humidity = doc["humidity"];

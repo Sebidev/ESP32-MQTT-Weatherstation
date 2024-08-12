@@ -6,7 +6,6 @@
 #define IMG_WIDTH 192
 #define IMG_HEIGHT 192
 
-
 void show_noWifi(){
   gfx->fillScreen(BLACK);
   gfx->draw16bitRGBBitmap(120, 150, (uint16_t *)wifi_off_icon, IMG_WIDTH, IMG_HEIGHT);

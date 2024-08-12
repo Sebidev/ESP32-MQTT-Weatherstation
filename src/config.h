@@ -3,7 +3,6 @@
 
 #include <Arduino_GFX_Library.h>
 
-// Deklaration der Variablen
 extern Arduino_ESP32RGBPanel *rgbpanel;
 extern Arduino_RGB_Display *gfx;
 
