@@ -1,0 +1,5 @@
+Topic: 'zigbee2mqtt/Sebis Sensor', 'zigbee2mqtt/Wohnzimmer Sensor', 'zigbee2mqtt/Außensensor'
+Value: {"battery_state":"high","humidity":57,"linkquality":114,"temperature":24.3,"temperature_unit":"celsius"}
+Value: {"battery_state":"high","humidity":52,"linkquality":15,"temperature":25.4,"temperature_unit":"celsius"}
+Value: {"battery_state":"medium","humidity":60,"linkquality":30,"temperature":21.3,"temperature_unit":"celsius"}
+
