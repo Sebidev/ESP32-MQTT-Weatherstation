@@ -3,6 +3,8 @@
 
 #include <Arduino_GFX_Library.h>
 
+#define GFX_BL 2
+
 extern Arduino_ESP32RGBPanel *rgbpanel;
 extern Arduino_RGB_Display *gfx;
 

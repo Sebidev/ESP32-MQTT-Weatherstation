@@ -15,28 +15,21 @@ int value = 0;
 
 // Tuya Sensor 1
 String ts1_battery_state = ""; 
-float ts1_humidity = NAN;       
+float ts1_humidity = -1;       
 float ts1_temperature = NAN;    
 unsigned long lastTS1Msg = 0;
 
 // Tuya Sensor 2
 String ts2_battery_state = "";
-float ts2_humidity = NAN;
+float ts2_humidity = -1;
 float ts2_temperature = NAN;
 unsigned long lastTS2Msg = 0;
 
 // Tuya Sensor 3
 String ts3_battery_state = "";
-float ts3_humidity = NAN;
+float ts3_humidity = -1;
 float ts3_temperature = NAN;
 unsigned long lastTS3Msg = 0;
-
-bool areAllSensorsUninitialized() {
-  bool ts1_uninitialized = ts1_battery_state.isEmpty() && isnan(ts1_humidity) && isnan(ts1_temperature);
-  bool ts2_uninitialized = ts2_battery_state.isEmpty() && isnan(ts2_humidity) && isnan(ts2_temperature);
-  bool ts3_uninitialized = ts3_battery_state.isEmpty() && isnan(ts3_humidity) && isnan(ts3_temperature);
-  return ts1_uninitialized && ts2_uninitialized && ts3_uninitialized;
-}
 
 void setup_wifi() {
   delay(10);
@@ -141,28 +134,21 @@ void setup(){
     pinMode(GFX_BL, OUTPUT);
     digitalWrite(GFX_BL, HIGH);
   #endif
-/* 
-  setup_wifi();
+
+/*   setup_wifi();
   client.setServer(mqtt_server, 1883);
-  client.setCallback(callback);
- */
-  show_sensorvalue("Outdoor", 20.3, 78, "medium");
+  client.setCallback(callback); */
+  
+  show_sensorvalue("Outdoor", 24.5, 60, "medium", "Test", 26.5, 25.2, 68, "high", "high");
 }
 
 
 void loop(){
-/*   
-  if (!client.connected()) {
+/*   if (!client.connected()) {
     reconnect();
   }
   client.loop();
 
-  if (areAllSensorsUninitialized()) {
-    Serial.println("Alle Sensorwerte sind uninitialisiert oder leer.");
-    show_waitsync();
-  } else {
-    Serial.println("Mindestens ein Sensor hat gültige Werte.");
-    show_sensorvalue("Outdoor", ts1_temperature, ts1_humidity, ts1_battery_state);
-  }
- */
+  show_sensorvalue("Outdoor", ts1_temperature, ts1_humidity, ts1_battery_state, "Indoor", ts2_temperature, ts3_temperature, ts2_humidity, ts2_battery_state, ts3_battery_state);
+  delay(60000); */
 }

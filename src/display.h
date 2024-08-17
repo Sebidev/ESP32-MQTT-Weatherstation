@@ -5,6 +5,6 @@
 
 void show_noWifi();
 void show_waitsync();
-void show_sensorvalue(String topic, float temperature, int humidity, String batterystate);
+void show_sensorvalue(String topic1, float temperature1, int humidity1, String batterystate1, String topic2, float temperature2, float temperature3,int humidity2, String batterystate2, String batterystate3);
 
 #endif // DISPLAY_H
