@@ -18,5 +18,5 @@ const char* mqtt_user = "your_mqtt_user";
 const char* mqtt_userpassword = "your_mqtt_password";
 
 const char* ts1_topic = "zigbee2mqtt/Außensensor";
-const char* ts2_topic = "zigbee2mqtt/Wohnzimmer Sensor";
-const char* ts3_topic = "zigbee2mqtt/Sebis Sensor";
+const char* ts2_topic = "zigbee2mqtt/Wohnzimmer_Sensor";
+const char* ts3_topic = "zigbee2mqtt/Sebis_Sensor";

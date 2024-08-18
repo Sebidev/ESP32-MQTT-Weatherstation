@@ -13,25 +13,26 @@ unsigned long lastMsg = 0;
 char msg[MSG_BUFFER_SIZE];
 int value = 0;
 
-// Tuya Sensor 1
+// Tuya Sensor 1 - ts1_topic
 String ts1_battery_state = ""; 
 float ts1_humidity = -1;       
 float ts1_temperature = NAN;    
 unsigned long lastTS1Msg = 0;
 
-// Tuya Sensor 2
+// Tuya Sensor 2 - ts2_topic
 String ts2_battery_state = "";
 float ts2_humidity = -1;
 float ts2_temperature = NAN;
 unsigned long lastTS2Msg = 0;
 
-// Tuya Sensor 3
+// Tuya Sensor 3 - ts3_topic
 String ts3_battery_state = "";
 float ts3_humidity = -1;
 float ts3_temperature = NAN;
 unsigned long lastTS3Msg = 0;
 
 void setup_wifi() {
+  show_noWifi();
   delay(10);
   // We start by connecting to a WiFi network
   Serial.println();
@@ -55,8 +56,6 @@ void setup_wifi() {
 }
 
 void reconnect() {
-  show_noWifi();
-
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     String clientId = "ESP32Client-";
@@ -67,7 +66,7 @@ void reconnect() {
       client.subscribe(ts1_topic);
       client.subscribe(ts2_topic);
       client.subscribe(ts3_topic);
-      client.publish("ESP32Topic", clientId.c_str());
+      client.publish("esp32-weatherstation", clientId.c_str());
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -95,25 +94,32 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
 
   unsigned long now = millis();
-  
+
   if (strcmp(topic, ts1_topic) == 0) {
     ts1_battery_state = doc["battery_state"].as<String>();
     ts1_humidity = doc["humidity"];
     ts1_temperature = doc["temperature"];
     lastTS1Msg = now;
+    Serial.println("Updated TS1 values");
   } 
   else if (strcmp(topic, ts2_topic) == 0) {
     ts2_battery_state = doc["battery_state"].as<String>();
     ts2_humidity = doc["humidity"];
     ts2_temperature = doc["temperature"];
     lastTS2Msg = now;
+    Serial.println("Updated TS2 values");
   } 
   else if (strcmp(topic, ts3_topic) == 0) {
     ts3_battery_state = doc["battery_state"].as<String>();
     ts3_humidity = doc["humidity"];
     ts3_temperature = doc["temperature"];
     lastTS3Msg = now;
+    Serial.println("Updated TS3 values");
   }
+
+  show_sensorvalue("Outdoor", ts1_temperature, ts1_humidity, ts1_battery_state, 
+                   "Indoor", ts2_temperature, ts3_temperature, ts2_humidity, 
+                   ts2_battery_state, ts3_battery_state);
 }
 
 
@@ -135,20 +141,17 @@ void setup(){
     digitalWrite(GFX_BL, HIGH);
   #endif
 
-/*   setup_wifi();
+  setup_wifi();
   client.setServer(mqtt_server, 1883);
-  client.setCallback(callback); */
+  client.setCallback(callback);
   
-  show_sensorvalue("Outdoor", 24.5, 60, "medium", "Test", 26.5, 25.2, 68, "high", "high");
+  show_waitsync();
 }
 
 
 void loop(){
-/*   if (!client.connected()) {
+  if (!client.connected()) {
     reconnect();
   }
   client.loop();
-
-  show_sensorvalue("Outdoor", ts1_temperature, ts1_humidity, ts1_battery_state, "Indoor", ts2_temperature, ts3_temperature, ts2_humidity, ts2_battery_state, ts3_battery_state);
-  delay(60000); */
 }
